@@ -2103,6 +2103,17 @@ class TestRegression(TestCase):
         assert_equal(np.int32(10) == x, "OK")
         assert_equal(np.array([10]) == x, "OK")
 
+    def test_fft(self):
+	#PR 5386
+	import numpy as np
+	from numpy.fft import fft2
+	size = 256
+	t = np.linspace(start=0, stop=50*np.pi, endpoint=False, num=size)
+	x,y = np.meshgrid(t, t)
+	img = (127 + 127*np.sin(x)).astype(np.uint8)
+	F = fft2(img)
+	F_min = F.min()
+	F = F.clip(F_min)
 
 if __name__ == "__main__":
     run_module_suite()
