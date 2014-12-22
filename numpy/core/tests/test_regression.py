@@ -19,6 +19,7 @@ from numpy.testing import (
         )
 from numpy.testing.utils import _assert_valid_refcount
 from numpy.compat import asbytes, asunicode, asbytes_nested, long, sixu
+from numpy.fft import fft2
 
 rlevel = 1
 
@@ -2103,10 +2104,8 @@ class TestRegression(TestCase):
         assert_equal(np.int32(10) == x, "OK")
         assert_equal(np.array([10]) == x, "OK")
 
-    def test_fft(self):
-	#PR 5386
-	import numpy as np
-	from numpy.fft import fft2
+    def test_clip_method_crash(self):
+	## Check segfault reported in gh-5354 doesn't occur anymore
 	size = 256
 	t = np.linspace(start=0, stop=50*np.pi, endpoint=False, num=size)
 	x,y = np.meshgrid(t, t)
@@ -2114,6 +2113,7 @@ class TestRegression(TestCase):
 	F = fft2(img)
 	F_min = F.min()
 	F = F.clip(F_min)
+
 
 if __name__ == "__main__":
     run_module_suite()
