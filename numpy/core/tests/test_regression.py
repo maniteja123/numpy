@@ -19,7 +19,6 @@ from numpy.testing import (
         )
 from numpy.testing.utils import _assert_valid_refcount
 from numpy.compat import asbytes, asunicode, asbytes_nested, long, sixu
-from numpy.fft import fft2
 
 rlevel = 1
 
